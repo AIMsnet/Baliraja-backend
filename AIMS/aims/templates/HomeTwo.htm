@@ -1,0 +1,603 @@
+{% load static %}
+{% static "images" as baseURL %}
+{% load crispy_forms_tags %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+   
+    <!-- External CSS {% static '' %}-->
+    <link rel="stylesheet" href="{% static 'styles/HomeTwo.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/FormCss.css' %}">
+
+    <title>BaliRaja | Home </title>
+
+</head> 
+<body>
+{% block content %}
+<!-- ---------------Navbar -->
+<div class="row m-0 navBar">
+  <div class="col-sm-2 col-md-2 col-lg-2 order-lg-2 order-md-2 text-center navBarBelt">
+    <h2>बळीराजा</h2>
+  </div>
+  <div class="col-sm-5 col-md-5 col-lg-5 order-lg-1 order-md-1 navBeltTwo">
+    <div class="input-group mb-3 navBeltTwoInputGroup">
+      <div class="input-group-prepend navBeltCategory">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</button>
+        <div class="dropdown-menu">
+         <!-- Drop down List---------------------------------- -->
+         <div class="container-fluid p-0">
+             <div class="row">
+                 <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                      <h6>Farming Tools, Equipment & Machines</h6>
+                      <ul>
+                         <li>  Agricultural Implements </li>
+                         <li>  Agricultural Equipment</li>
+                         <li>  Agricultural Pipes</li>
+                         <li> Agro Shade Net</li> 
+                         <li>  Agricultural Sprayers</li>
+
+                      </ul>
+                 </div>
+                 <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                     <h6>Flowers, Plants & Trees</h6>
+                     <ul>
+                         <li>Fresh Flower</li>
+                         <li>Garden Plant</li>
+                         <li>Flowering Plant</li>
+                         <li>Rose Flower</li>
+                         <li>Decorative Plant</li>
+                     </ul>
+
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                      <h6>Seeds and Plant Saplings</h6>
+                      <li>Cumin Seeds</li>
+                      <li>Seeds</li>
+                      <li>Coriander Seed</li>
+                      <li>Mustard Seeds</li>
+                      <li>Wheat Seeds</li>
+                  </div>
+                  <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                      <h6>Tractor, Tractor Parts & Assemblies</h6>
+                      <li>Tractor Spare Parts</li>
+                      <li>Tractor</li>
+                      <li>Cultivator</li>
+                      <li>Rotavator</li>
+                      <li>Tractor Trolleys</li>
+                  </div>
+             </div>
+         </div>
+         <!-- Drop Down list Ending--------------------------- -->
+        </div>
+      </div>
+      <input type="text" class="form-control navbarSearchInput" aria-label="Text input with dropdown button" placeholder="Search Product..">
+
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary btnNavBarSearch" type="button"><img src="{% static 'images/searchBlack.svg' %}" class = "img-fluid" alt="searchIcon"></button>
+        </div>
+    </div>
+  </div>
+  <div class="col-sm-5 col-md-5 col-lg-5 order-lg-3 order-md-3 navBarBeltThree">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Blogs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target=".supplierSignUp">List Business</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Get Quotes</a>
+      </li>
+
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;
+          border: transparent; font-size: 2.5vh;">
+              Hello,{{user.first_name}}
+          </button>
+         
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <a class="nav-link" href="logout/"><button class="dropdown-item" type="button" data-toggle="modal" data-target="#customerSignIn">Profile</button></a>     
+            <a class="nav-link" href="logout/"><button class="dropdown-item" type="button" data-toggle="modal" data-target="#customerSignIn">Logout</button></a>     
+          </div>
+          </div>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: transparent;
+            border: transparent; font-size: 2.5vh;">
+                Login
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#supplierSignIn">Seller</button>
+              <a href="login/"><button class="dropdown-item" type="button" data-toggle="modal">Customer</button></a> 
+            </div>
+          </div>
+          </li>
+      {% endif %}
+
+      <!-- <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+  </ul>
+  </div>
+</div>
+<!-- ------------Categories -->
+<div class="container categories">
+    <h3>Categories</h3>
+    
+    <div class="row m-0 categoriesCompart">  
+        {% for cat in cats %}   
+        <div class="col-6 col-sm-3 col-md-3 col-lg-3">
+          <img src="{{baseURL}}/{{cat.catagoryImage}}" alt="Shovel icon" class="img-fluid">
+          <h5>{{ cat.catagoryName }}</h5>
+        </div>       
+        {% endfor %}     
+    </div>
+</div>
+
+<!-- ---------RegisterWithUs -->
+
+<div class="row m-0 text-center registerWithUs">
+    <div class="col-sm blockOne">
+        <button data-toggle="modal" data-target=".supplierSignUp" >Register here & List Your Business</button>
+    </div>
+
+    <div class="col-sm blockTwo">
+        <button data-toggle="modal" data-target=".customerSignUp" > Become Member & Join Us</button>
+    </div>
+</div>
+
+<!-- ----------Featured Advertisement -->
+<div class="container-fluid py-3 bg-white">
+  <h3 class="text-center">Featured</h3>
+  <ul class="nav justify-content-center tabset">
+    <li class="active"><a data-toggle="tab" href="#home"> <h4>New Launch</h4></a></li>
+    <li><a data-toggle="tab" href="#menu1"><h4>Offers</h4></a></li>
+    <li><a data-toggle="tab" href="#menu2"><h4>Popular</h4></a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade show active">
+     <!-- -----------------------------------------------Carousel Starts Here -->
+     <div class="container my-4 advertiseContainer">
+      <hr class="my-4"> 
+    
+      <!--Carousel Wrapper-->
+      <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+    
+        <!--Controls-->
+        <div class="controls-top text-center">
+          <a class="btn-floating" href="#multi-item-example" data-slide="prev"><img src="{% static 'images/LeftArrow.svg' %}" class = "img-fluid navArrow" alt=""></a>
+          <a class="btn-floating" href="#multi-item-example" data-slide="next"><img src="{% static 'images/RightArrow.svg' %}" class = "img-fluid navArrow" alt=""></a>
+        </div>
+        <!--/.Controls-->
+    
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+          <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+          <li data-target="#multi-item-example" data-slide-to="1"></li>
+          <li data-target="#multi-item-example" data-slide-to="2"></li>
+        </ol>
+        <!--/.Indicators-->
+    
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+    
+          <!--First slide-->
+          <div class="carousel-item active">
+    
+            <div class="row">
+              <div class="col-4 advertiseCardColumn">
+                <a href="">
+                  <div class="card">
+                    <img src="https://4.imimg.com/data4/TO/CE/ANDROID-2674668/product-500x500.jpeg" class="card-img-top" alt="...">
+                    <div class="card-body advertiseCardBody">
+                      <h5>Maxi Paw Popup Sprinkler for Landscape</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              
+              <div class="col-4 advertiseCardColumn">
+                <a href="">
+                  <div class="card">
+                    <img src="https://5.imimg.com/data5/AQ/XT/MY-25286959/irrigation-sprinkler-500x500.jpg" class="card-img-top" alt="...">
+                    <div class="card-body advertiseCardBody">
+                      <h5>Brass Sprinkler Nozzle F/HT - 20</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+    
+              <div class="col-4 advertiseCardColumn">
+              <a href="">
+                <div class="card">
+                  <img src="https://5.imimg.com/data5/LF/XP/ZU/ANDROID-21647869/1565250949571-jpg-500x500.jpg" class="card-img-top" alt="...">
+                  <div class="card-body advertiseCardBody">
+                    <h5>Netafim 2.5 mm D-Net 8550 Sprinkler</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+              </a>
+              </div>
+            </div>
+    
+          </div>
+    
+        </div>
+        <!--/.Slides-->
+    
+      </div>
+      <!--/.Carousel Wrapper-->
+    
+    
+    </div>
+      <!-- -----------------------------------------------Carousel Ends Here -->
+    </div>  
+    <div id="menu1" class="tab-pane fade">
+      <h3 class="text-center">Offers</h3>
+      <p>Some content in menu 1.</p>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3 class="text-center">Popular</h3>
+      <p>Some content in menu 2.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- -------Requirement Form -->
+<div class="container-fluid text-center requirement">
+  <h2>Get Verified Sellers</h2>
+  <span> Tell us what you need & recive seller details on phone and email </span>
+
+    <div class="container requirementNestedForm">
+      <form action="/">
+       <div class="form-group requirementFormGroup">
+           <input type="text" name="txtProduct" id="txtProduct" placeholder="Product Name.." class="form-control">
+       </div>
+
+       <div class="form-group requirementFormGroup">
+           <input type="text" name="txtRequirement" id="txtRequirement" placeholder="Requirement.." class="form-control">
+       </div>
+
+       <div class="form-group">
+           <input type="submit" value="Get Sellers" class="btn-primary">
+       </div>
+      </form>
+  
+  </div>
+</div>
+
+<!-- ----------Advertisement -->
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-sm-3 col-md-6 col-lg-3">
+      <div class="card">
+        <img class="card-img-top" src="https://5.imimg.com/data5/LN/GA/MY-2664323/mini-power-tillers-500x500.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Bheem Mini Power Tillers, Engine Model: 600d</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-6 col-lg-3">
+      <div class="card">
+        <img class="card-img-top" src="https://5.imimg.com/data5/RM/MN/MY-3865272/rotary-disc-harrow-500x500.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Mild Steel Rotary Disc Harrow</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-6 col-lg-3">
+      <div class="card">
+        <img class="card-img-top" src="https://5.imimg.com/data5/LZ/XY/YX/SELLER-1450162/golf-and-cricket-ground-fertilizer-spreader-top-dresser-similar-to-toro-turfco-500x500.png" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Golf and Cricket Ground Fertilizer Spreader, Top Dresser, Similar To Toro, Turfco</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 col-md-6 col-lg-3">
+      <div class="card">
+        <img class="card-img-top" src="https://5.imimg.com/data5/OR/ST/BB/SELLER-27483913/petrol-power-reaper-500x500.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Vardhman Power Reaper, Model Name/Number: 2fp, Capacity: Honda Gx 200 Engine</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ----------------Footer -->
+
+<div class="container-fluid p-0">
+    <footer class="footer">
+        <div class="container-fluid">
+          <div class="row p-4"> 
+            <div class="col-sm-4 col-md-4 col-lg-4 mx-3">
+              <img src="{% static './images/logo.png' %}" class="img-fluid" alt="Responsive image" style="height: 80px;"> 
+              <h1 style="color: azure; font-family:'Arbutus Slab', serif; display: inline;" class="ml-3">Kisan Janab</h1>
+               <div class="my-4 text-white" style="font-size:15px; letter-spacing: .3px;">
+                  <div>
+                    <p>Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing Elit Aliqua. Ut Enim Ad Minim Veniam, Quis..</p>
+                  </div>
+                  <div class="footer-intro"></div>
+                  <div class="mt-3">
+                    S. No 42/1, First Floor,
+                    Above SBI Bank,
+                    Mahindrakar Complex,
+                    NDA Road, Warje, Pune,
+                    Maharashtra, India 411 058. <br><br>
+                    Phone : (+91) 9969940732, 9823239159 <br> <br>
+                    E-Mail : info@aimbreakthrough.com <br>
+                  </div>
+                  <div class="footer-intro"></div>
+                  <div class="footer-icon mt-4">
+                    <fa-icon [icon]="faFacebook"></fa-icon>
+                    <fa-icon [icon]="faLinkedin"></fa-icon>
+                  </div>
+               </div>
+            </div>
+    
+    
+            <div class="col-sm-7 col-md-7 col-lg-7" style="border-left: 1px solid rgba(211, 206, 206, 0.836);">
+                <div class="row mt-3 ml-2 text-white">
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <span style="font-weight: bold;">Related Quick Links</span>
+                    <ul class="footer-list">
+                      <li> <a href="http://krishi.maharashtra.gov.in/">KrishiMaharashtra</a> </li>
+                      <li>  <a href="http://mofpi.nic.in/Schemes/cold-chain">Ministry of Food Processing Industries</a> </li>
+                      <li> <a href="https://nmsa.dac.gov.in/">National Mission for Sustainable Agriculture </a> </li>
+                      <li> <a href="https://pmksy.gov.in/">Pradhan Mantri Krishi Sinhalese Yojana</a> </li>
+                      <li> <a href="https://pmfby.gov.in/">Pradhan Mantri Fasal Bima Yojana </a> </li>
+                    </ul>
+                  </div>
+    
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <span style="font-weight: bold;">Solutions</span>
+                    
+                    <ul class="footer-list">
+                      <li> <a href="">LOL</a> </li>
+                      <li>  <a href="">ROF LOL</a> </li>
+                      <li> <a href="">HAHHAHAHAAH</a> </li>
+                      <li> <a href="">LAUGH</a> </li>
+                    </ul>
+                  </div>
+    
+                  <div class="col-sm-12 col-md-4 col-lg-4">
+                    <span style="font-weight: bold;">EXTRAS</span>
+                    
+                    <ul class="footer-list">
+                      <li>Free Listing</li>
+                      <li>Quotes</li>
+                      <li>Advertise</li>
+                      <li>Investor Relations</li>
+                    </ul>
+                  </div>
+                </div>
+
+            </div>    
+          </div>
+        </div>
+    </footer>
+
+    <div class="container-fluid" style="background-color: #0257b3; color: white; text-align: center;">
+        Copyright  <fa-icon [icon]="faCopyright"></fa-icon> 2020 AIMbreakthrough
+    </div>
+</div>
+
+<!-- --------------------Location Model -->
+<div class="modal fade" id="locationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Select Location</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="custom-select" id="selectDisrtict">
+          <option selected>Location..</option>
+          <option value="Ahmadnagar">Ahmadnagar (Ahmednagar)</option>
+          <option value="Akola">Akola</option>
+          <option value="Amravati">Amravati</option>
+          <option value="Aurangabad">Aurangabad</option>
+          <option value="Bhandara">Bhandara</option>
+          <option value="Beed">Beed</option>
+        </select>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Save Location</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------Supplier Sign In Model -->
+<div class="modal fade" id="supplierSignIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Sign In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/" style="text-align: -webkit-center;">
+            {% csrf_token %}
+            <div class="form-group">
+                <!-- <label for="txtProduct">Email Id</label> -->
+                <input type="text" class="form-control supplierSignInFormControl" name="emailId" id="emailId" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <!-- <label for="txtProduct">Password</label> -->
+                <input type="text" class="form-control supplierSignInFormControl" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign In" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+            New Seller ?<a href="" class = "px-3" data-toggle="modal" data-target=".supplierSignUp">Start Here</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- ------------Supplier Sign Up Model -->
+<div class="modal fade supplierSignUp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">   
+        <div class="modal-header">
+            <h5 class="modal-title">Sign Up</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="padding: 2vh 6vw;">
+            <form action="/">
+              {% csrf_token %}
+                <div class="form-group">
+                     <label for="txtProduct">
+                        <svg class="bi bi-person inputGroupSvg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 00.014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 00.022.004zm9.974.056v-.002.002zM8 7a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0z" clip-rule="evenodd"/>
+                          </svg>   
+                        Full Name</label>
+                    <input type="text" class="form-control supplierSignInFormControl" name="supplierNamr" id="supplierName" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="txtProduct">
+                        <svg class="bi bi-envelope-open inputGroupSvg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M.243 6.929l.514-.858L8 10.417l7.243-4.346.514.858L8 11.583.243 6.93z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M7.184 10.68L.752 14.432l-.504-.864L6.68 9.816l.504.864zm1.632 0l6.432 3.752.504-.864L9.32 9.816l-.504.864z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M8.47 1.318a1 1 0 00-.94 0l-6 3.2A1 1 0 001 5.4V14a1 1 0 001 1h12a1 1 0 001-1V5.4a1 1 0 00-.53-.882l-6-3.2zM7.06.435a2 2 0 011.882 0l6 3.2A2 2 0 0116 5.4V14a2 2 0 01-2 2H2a2 2 0 01-2-2V5.4a2 2 0 011.059-1.765l6-3.2z" clip-rule="evenodd"/>
+                          </svg>
+                        Email</label>
+                    <input type="text" class="form-control supplierSignInFormControl" name="supplierEmail" id="supplierEmail" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="txtProduct">
+                        <svg class="bi bi-shield-lock inputGroupSvg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M5.443 1.991a60.17 60.17 0 00-2.725.802.454.454 0 00-.315.366C1.87 7.056 3.1 9.9 4.567 11.773c.736.94 1.533 1.636 2.197 2.093.333.228.626.394.857.5.116.053.21.089.282.11A.73.73 0 008 14.5c.007-.001.038-.005.097-.023.072-.022.166-.058.282-.111.23-.106.525-.272.857-.5a10.197 10.197 0 002.197-2.093C12.9 9.9 14.13 7.056 13.597 3.159a.454.454 0 00-.315-.366c-.626-.2-1.682-.526-2.725-.802C9.491 1.71 8.51 1.5 8 1.5c-.51 0-1.49.21-2.557.491zm-.256-.966C6.23.749 7.337.5 8 .5c.662 0 1.77.249 2.813.525a61.09 61.09 0 012.772.815c.528.168.926.623 1.003 1.184.573 4.197-.756 7.307-2.367 9.365a11.191 11.191 0 01-2.418 2.3 6.942 6.942 0 01-1.007.586c-.27.124-.558.225-.796.225s-.526-.101-.796-.225a6.908 6.908 0 01-1.007-.586 11.192 11.192 0 01-2.417-2.3C2.167 10.331.839 7.221 1.412 3.024A1.454 1.454 0 012.415 1.84a61.11 61.11 0 012.772-.815z" clip-rule="evenodd"/>
+                            <path d="M9.5 6.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                            <path d="M7.411 8.034a.5.5 0 01.493-.417h.156a.5.5 0 01.492.414l.347 2a.5.5 0 01-.493.585h-.835a.5.5 0 01-.493-.582l.333-2z"/>
+                          </svg>
+                        Password</label>
+                    <input type="text" class="form-control supplierSignInFormControl" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="txtProduct">Confirm Password</label>
+                    <input type="text" class="form-control supplierSignInFormControl" name="confirmPassword" id="confirmPassword" placeholder="Repeat Password">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">I agree to the Terms of User</label>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Sign In" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- ------------Customer Sign In Model -->
+<div class="modal fade" id="customerSignIn" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Sign In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="customerSignIn/" method="POST" style="text-align: -webkit-center;">
+            {% csrf_token %}
+            <div class="form-group">
+                <!-- <label for="txtProduct">Email Id</label> -->
+                <input type="number" class="form-control supplierSignInFormControl" name="mob_no" id="customerContact" placeholder="Enter Mobile Number">
+            </div>
+            <div class="form-group">
+                <!-- <label for="txtProduct">Email Id</label> -->
+                <input type="password" class="form-control supplierSignInFormControl" name="password" id="customerPassword" placeholder="Password ">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sign In" class="btn btn-primary">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+            New Here ?<a href="" class = "px-3" data-toggle="modal" data-target=".customerSignUp">Join Us</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- ------------Customer Sign Up Model -->
+<div class="modal fade customerSignUp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">   
+        <div class="modal-header">
+            <h5 class="modal-title">Customer Sign Up</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="padding: 2vh 6vw;">
+            <form action="customerSignUp/" method="POST">
+              {% csrf_token %}
+                
+                
+                <div class="form-group">
+                  <label for="txtProduct">          
+                      Confirm Password</label>
+                  <input type="password" class="form-control supplierrSignInFormControl" name="password2" id="customerDistrict" placeholder="Confirm Password">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">I agree to the Terms of User</label>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Sign Up" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- <script>
+   $(document).ready(function(){
+        $("#locationModal").modal('show');
+    });
+</script> -->
+
+{% endblock %}
+</body>
+</html>

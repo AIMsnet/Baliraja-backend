@@ -1,0 +1,13 @@
+<body>
+    {% block content %}
+        <center>
+            <div class="container">
+                {% for message in messages%}
+                <h3 class="text msg-warning">{{message}}</h3>
+                {% endfor%}
+                <!-- <h1 class="txt-success">Thank You For Registration<br> Please SignIn</h1> -->
+                <a href="/"><button class="btn-primary">Go Back</button></a>
+            </div>
+        </center>
+    {% endblock %}
+</body>
